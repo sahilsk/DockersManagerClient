@@ -24,8 +24,6 @@ exports.getServerStat = function(req,res){
 	stat.freemem = osUtils.freemem();
 	stat.totalmem = osUtils.totalmem();
 	stat.freememPercentage = osUtils.freememPercentage();
-	stat.cpus = osUtils.cpus();
-	
 	stat.sysUptime = osUtils.sysUptime();
 	stat.processUptime = osUtils.processUptime();
 	
