@@ -1,6 +1,8 @@
 
 var serverCtrl = require("../actions/serverAction");
 
+var dockerCtrl = require("../actions/dockerAction");
+
 exports.makeRoutes = function(router){
 	router.get("/hello").bind( function(req, res){
         res.send("Hi There");    
@@ -8,12 +10,9 @@ exports.makeRoutes = function(router){
 	
 	
 	router.path("/docker", function(){
-		this.get().bind( function(req, res){
-			res.send({dockerListener: "Docker operation"});
-			
-		});;
+		this.get().bind( dockerCtrl.getDockerStat);	
 		
-		
+		this.post("/pullImage").bind( dockerCtrl.pullImageFromRepo);
 		
 	});
 	
@@ -22,16 +21,14 @@ exports.makeRoutes = function(router){
 		
 		this.get().bind( serverCtrl.getServerStat);
 		
-		
-		
-		
 		this.get("/avgLoad").bind( serverCtrl.getAvgLoad);
 		
 		this.get("/freeMemPercentage").bind(serverCtrl.getFreeMemPercentage);
 		
 		this.get("/processUptime").bind( serverCtrl.getProcessUptime );
 		
-		
+		this.get("/cpu").bind( serverCtrl.getCpuStat);
+
 		
 	});
 	

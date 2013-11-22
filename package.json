@@ -9,7 +9,7 @@
     "os-utils": "0.0.14",
     "winston": "0.7.2",
     "ecstatic": "0.4.12",
-    "journey": "0.4.0-pre-3",
-	"docker.io": "0.7.0"
+    "journey": "0.4.0-pre-3"
+	  //,	"docker.io": "0.7.0"
   }
 }

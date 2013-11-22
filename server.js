@@ -1,5 +1,5 @@
 var http = require("http"),
-    logger = require("./logger"),
+    logger = require("./config/logger"),
     Journey = require("journey"),
     ecstatic = require('ecstatic'),
 	routes = require("./config/routes")
