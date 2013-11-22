@@ -1,11 +1,15 @@
 
 var osUtils = require("os-utils");
+var logger = require("../config/logger");
 
-
-exports.getAvgLoad = function(req, res){
+exports.getAvgLoad = function(req, res, params){
 	
-	
-	res.send( { "AverageLoad": osUtils.loadavg(15) });
+	if( typeof params.minutes ==="undefined" && !params.minutes)
+		res.send( { "AverageLoad": osUtils.loadavg(15), minutes:15 });
+	else{
+		logger.info("Minutes: " + params.minutes);
+		res.send( { "AverageLoad": osUtils.loadavg( parseInt( params.minutes)  ) , minutes:params.minutes });
+	}
 }
 
 
@@ -27,7 +31,10 @@ exports.getServerStat = function(req,res){
 	stat.sysUptime = osUtils.sysUptime();
 	stat.processUptime = osUtils.processUptime();
 	
-	stat.loadavg = [osUtils.loadavg(5), osUtils.loadavg(15), osUtils.loadavg(30) ];	
+	stat.loadavg = [{ AverageLoad: osUtils.loadavg(5), minutes: 5}, 
+					{ AverageLoad: osUtils.loadavg(15), minutes: 15},
+					{ AverageLoad: osUtils.loadavg(30), minutes: 30}
+				   ];	
 	res.send( stat);
 }
 
