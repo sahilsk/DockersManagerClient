@@ -3,6 +3,7 @@ var util = require("util");
 var osUtils = require("os-utils");
 var config = require("../config/config");
 var logger = require("../config/logger.js");
+var exec = require('child_process').exec
 //var docker = require('docker.io')({ socketPath: '/var/run/docker.sock' });
 
 
@@ -129,6 +130,8 @@ exports.pushImageOnRegistry = function(req, res, params){
 	});	
 	
 	*/
+	
+	
 	
 	var repository = JSON.parse(params.repository);
 	var tag = params.tag.trim();
