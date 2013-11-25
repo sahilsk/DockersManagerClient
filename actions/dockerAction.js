@@ -40,8 +40,7 @@ exports.getDockerStat = function(req, res){
 				  	logger.log("error", "Unable to connect to docker server. Please check connection");
 				  	res.send({error: "Unable to connect to docker server. Please check connection"});
 				  	return;
-				  	break;					  				  
-				  
+				  	break;			  				  
 		  }
 		  
 	  });
@@ -55,23 +54,27 @@ exports.getDockerStat = function(req, res){
 }
 
 exports.pullImageFromRepo = function(req, res, params){
-	if( typeof params.image === "undefined" && params.image.length === 0){
+	
+	var repository = JSON.parse(params.repository);
+	var tag = params.tag.trim();
+	if( typeof tag === "undefined" && tag.length === 0){
 		res.send({"Error":"No image name provided."});
 		return;
 	}
 	
-	if( typeof params.repository === "undefined" && params.repository.length === 0){
+	if( typeof repository=== "undefined" && !repository.ip && !repository.port){
 		res.send({"Error":"No repository provided."});
 		return;
-	}	
+	}
 	
 	//Create Child process
-	var cmdToPullImage = util.format("docker pull %s %s", params.image, params.repository );
-	var exec  = require('child_process').exec;
+	var cmdToPullImage = util.format("docker pull %s:%s/%s", repository.ip, repository.port, tag );
 	
+	logger.info("Command to execute : %s", cmdToPullImage);
+		
 	var child;
 	child = exec(cmdToPullImage, function (error, stdout, stderr) {
-		
+		tag
 		 logger.info( 'stdout: ' + stdout);
 		 if (error !== null) {
 			 logger.info( 'exec error: ' + error);
@@ -91,5 +94,38 @@ exports.pullImageFromRepo = function(req, res, params){
 		logger.info("Error: "+err);
 	});
 	*/
+	
+}
+
+exports.pushImageOnRegistry = function(req, res, params){
+	
+	var repository = JSON.parse(params.repository);
+	var tag = params.tag.trim();
+	if( typeof tag === "undefined" && tag.length === 0){
+		res.statusCode = 404;
+		res.send({"Error":"No image name provided."});
+		return;
+	}
+	
+	if( typeof repository=== "undefined" && !repository.ip && !repository.port){
+		res.statusCode = 404;
+		res.send({"Error":"Registry address not provided."});
+		return;
+	}
+	
+	//Create Child process
+	var cmdToPullImage = util.format("docker push %s:%s/%s", repository.ip, repository.port, tag );
+	
+	logger.info("Executing : %s", cmdToPullImage);
+		
+	var child;
+	child = exec(cmdToPullImage, function (error, stdout, stderr) {
+		logger.info( 'stdout: ' + stdout);
+		 if (error !== null) {
+			 logger.info( 'exec error: ' + error);
+			 res.send({success: false, error: error, message: stderr});
+		  }else
+			  res.send({success: true, stdout : stdout });
+	});
 	
 }

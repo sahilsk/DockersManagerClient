@@ -13,6 +13,7 @@ exports.makeRoutes = function(router){
 		this.get().bind( dockerCtrl.getDockerStat);	
 		
 		this.post("/pullImage").bind( dockerCtrl.pullImageFromRepo);
+		ths.post("/pushImage").bind(dockerCtrl.pushImageOnRegistry);
 		
 	});
 	
