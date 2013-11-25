@@ -131,8 +131,7 @@ exports.pushImageOnRegistry = function(req, res, params){
 	
 	*/
 	
-	
-	
+		
 	var repository = JSON.parse(  decodeURIComponent( params.repository ) );
 	var tag = params.tag.trim();
 	if( typeof tag === "undefined" && tag.length === 0){
