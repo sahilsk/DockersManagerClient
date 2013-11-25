@@ -99,6 +99,10 @@ exports.pullImageFromRepo = function(req, res, params){
 
 exports.pushImageOnRegistry = function(req, res, params){
 	
+	res.setHeader("Access-Control-Allow-Origin", "*");
+  	res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+	
+	
 	var repository = params.repository;
 	var tag = params.tag.trim();
 	if( typeof tag === "undefined" && tag.length === 0){
