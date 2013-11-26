@@ -147,7 +147,7 @@ exports.pushImageOnRegistry = function(req, res, params){
 	}
 	
 	//Create Child process
-	var cmdToPullImage = util.format("docker push %s:%s/%s", repository.ip, repository.port, tag );
+	var cmdToPullImage = util.format("docker push %s", tag); // util.format("docker push %s:%s/%s", repository.ip, repository.port, tag );
 	
 	logger.info("Executing : %s", cmdToPullImage);
 		
