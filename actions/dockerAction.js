@@ -137,6 +137,7 @@ exports.pushImageOnRegistry = function(req, res, params){
 	if( typeof repository=== "undefined" && !repository ){
 		res.statusCode = 404;
 		res.send({"Error":"Tag with registry not provided."});
+		res.end();
 		return;
 	}
 	
@@ -155,9 +156,9 @@ exports.pushImageOnRegistry = function(req, res, params){
 				if( stdout.toString().indexOf("already pushed, skipping")!= -1 )
 				  res.send({success: true, stdout : stdout, isAlreadyPushed:true });
 				else
-		  		 res.send({success: true, stdout : stdout, isAlreadyPushed: false});  	
-			  
+		  		 res.send({success: true, stdout : stdout, isAlreadyPushed: false});  	  
 		  }
+		res.end();
 	});
    
 }
