@@ -133,13 +133,8 @@ exports.pushImageOnRegistry = function(req, res, params){
 	
 		
 	var repository = decodeURIComponent( params.tag ) ;
-	if( typeof tag === "undefined" && tag.length === 0){
-		res.statusCode = 404;
-		res.send({"Error":"No image name provided."});
-		return;
-	}
 	
-	if( typeof repository=== "undefined" && !repository.ip ){
+	if( typeof repository=== "undefined" && !repository ){
 		res.statusCode = 404;
 		res.send({"Error":"Tag with registry not provided."});
 		return;
@@ -148,7 +143,7 @@ exports.pushImageOnRegistry = function(req, res, params){
 	//Create Child process
 	var cmdToPullImage = util.format("docker push %s", repository); 
 	
-	logger.info("Executing : %s", cmdToPullImage);
+	logger.info("Executing : <%s>", cmdToPullImage);
 		
 	var child;
 	child = exec(cmdToPullImage, function (error, stdout, stderr) {
