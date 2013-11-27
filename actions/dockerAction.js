@@ -152,7 +152,7 @@ exports.pushImageOnRegistry = function(req, res, params){
 			 logger.info( 'exec error: ' + error);
 			 res.send({success: false, error: error, message: stderr});
 		  }else{
-				if( stdOut.toString().indexOf("already pushed, skipping")!= -1 )
+				if( stdout.toString().indexOf("already pushed, skipping")!= -1 )
 				  res.send({success: true, stdout : stdout, isAlreadyPushed:true });
 				else
 		  		 res.send({success: true, stdout : stdout, isAlreadyPushed: false});  	
