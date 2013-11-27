@@ -130,7 +130,6 @@ exports.pushImageOnRegistry = function(req, res, params){
 				else
 		  		 res.send({success: true, stdout : stdout, isAlreadyPushed: false});  	  
 		  }
-		res.end();
 	});
    
 }
