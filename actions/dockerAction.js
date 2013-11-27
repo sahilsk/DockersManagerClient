@@ -132,7 +132,7 @@ exports.pushImageOnRegistry = function(req, res, params){
 	*/
 	
 		
-	var repository = JSON.parse(  decodeURIComponent( params.tag ) );
+	var repository = decodeURIComponent( params.tag ) ;
 	if( typeof tag === "undefined" && tag.length === 0){
 		res.statusCode = 404;
 		res.send({"Error":"No image name provided."});
