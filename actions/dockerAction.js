@@ -100,38 +100,7 @@ exports.pullImageFromRepo = function(req, res, params){
 
 exports.pushImageOnRegistry = function(req, res, params){
 	
-	/*
-	var repository = params.repository;
-	var tag = params.tag.trim();
-	if( typeof tag === "undefined" && tag.length === 0){
-		res.statusCode = 404;
-		res.send({"Error":"No image name provided."});
-		return;
-	}
 	
-	if( typeof repository=== "undefined"){
-		res.statusCode = 404;
-		res.send({"Error":"Registry address not provided."});
-		return;
-	}	
-	//Create Child process
-	var cmdToPullImage = util.format("docker push %s/%s", repository, tag );
-	
-	logger.info("Executing : %s", cmdToPullImage);
-		
-	var child;
-	child = exec(cmdToPullImage, function (error, stdout, stderr) {
-		logger.info( 'stdout: ' + stdout);
-		 if (error !== null) {
-			 logger.info( 'exec error: ' + error);
-			 res.send({success: false, error: error, message: stderr});
-		  }else
-			  res.send({success: true, stdout : stdout });
-	});	
-	
-	*/
-	
-		
 	var repository = decodeURIComponent( params.tag ) ;
 	
 	if( typeof repository=== "undefined" && !repository ){
@@ -148,7 +117,10 @@ exports.pushImageOnRegistry = function(req, res, params){
 		
 	var child;
 	child = exec(cmdToPullImage, function (error, stdout, stderr) {
-		logger.info( 'stdout: ' + stdout);
+		logger.info(":::::::::::::::::::::::::::::::::::::::::::::::::::::stdout: " + stdout);
+		logger.info(":::::::::::::::::::::::::::::::::::::::::::::::::::::stderr: " + stderr);
+
+		
 		 if (error !== null) {
 			 logger.info( 'exec error: ' + error);
 			 res.send({success: false, error: error, message: stderr});
