@@ -8,7 +8,7 @@
   "dependencies": {
     "os-utils": "0.0.14",
     "winston": "0.7.2",
-    "ecstatic": "0.4.12",
+    "ecstatic": "4.1.4",
     "journey": "0.4.0-pre-3"
   }
 }
